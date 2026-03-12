@@ -73,6 +73,25 @@ def simulate_sink_failure() -> None:
     print(f"Sink failed gracefully. Stats: {broken_logger.stats.snapshot()}")
 
 
+def simulate_validation_failure() -> None:
+    """Show that a malformed pre-built event doesn't crash the worker."""
+    from bh_audit_logger import MemorySink
+
+    sink = MemorySink()
+    safe_logger = AuditLogger(
+        config=AuditLoggerConfig(
+            service_name="bh-example-worker",
+            service_environment="dev",
+            emit_failure_mode="log",
+        ),
+        sink=sink,
+    )
+
+    safe_logger.emit({"bad": "event", "missing": "required fields"})
+    print(f"Validation failure isolated. Stats: {safe_logger.stats.snapshot()}")
+    print(f"  Events in sink: {len(sink)} (should be 0 — invalid event was dropped)")
+
+
 if __name__ == "__main__":
     import logging
 
@@ -84,3 +103,7 @@ if __name__ == "__main__":
     print()
     print("=== Sink failure isolation ===")
     simulate_sink_failure()
+
+    print()
+    print("=== Validation failure isolation ===")
+    simulate_validation_failure()
