@@ -2,9 +2,8 @@
 fastapi>=0.100.0
 uvicorn[standard]>=0.24.0
 
-# Install bh-fastapi-audit from local checkout or git
-# From local checkout (sibling directory):
+# Install bh-fastapi-audit from local checkout (sibling directory):
 #   pip install -e ../bh-fastapi-audit
 #
-# From git (once published):
-#   pip install git+https://github.com/bh-healthcare/bh-fastapi-audit.git
+# Or from PyPI (once published):
+#   pip install bh-fastapi-audit>=0.2.2
