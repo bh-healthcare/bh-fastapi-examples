@@ -1,5 +1,5 @@
 """
-Worker / batch job demonstrating bh-audit-logger (v0.2.0).
+Worker / batch job demonstrating bh-audit-logger (v0.3.0).
 
 Shows how to emit audit events from non-HTTP contexts: Lambdas,
 ETL jobs, CLI tools, cron scripts — anything that isn't FastAPI.
@@ -14,8 +14,8 @@ logger = AuditLogger(
     config=AuditLoggerConfig(
         service_name="bh-example-worker",
         service_environment="dev",
-        service_version="0.2.0",
-        metadata_allowlist={"batch_id", "record_count"},
+        service_version="0.3.0",
+        metadata_allowlist=frozenset({"batch_id", "record_count"}),
         max_metadata_value_length=200,
         emit_failure_mode="log",
     ),
@@ -98,7 +98,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(name)s %(levelname)s %(message)s")
 
     print("=== Batch export example ===")
-    process_batch("20260311-001", ["pat_001", "pat_002", "pat_003"])
+    process_batch("20260328-001", ["pat_001", "pat_002", "pat_003"])
 
     print()
     print("=== Sink failure isolation ===")
