@@ -5,4 +5,4 @@
 #   pip install -e ../bh-audit-logger
 #
 # Or from PyPI (once published):
-#   pip install bh-audit-logger>=0.2.0
+#   pip install bh-audit-logger>=0.3.0

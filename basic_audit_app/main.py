@@ -1,12 +1,15 @@
 """
-Basic FastAPI app demonstrating bh-fastapi-audit middleware (v0.2.2).
+Basic FastAPI app demonstrating bh-fastapi-audit middleware (v0.3.0).
 
 Shows production-hardened audit logging with HIPAA-safe defaults:
+- Pure ASGI middleware (no BaseHTTPMiddleware overhead)
+- Non-blocking async emission via bounded queue
 - Actor identification via get_actor callback
 - Sink failure isolation (emit_failure_mode)
 - Metadata allowlist with scalar enforcement
 - client_ip excluded by default
 - route_template always present
+- Schema v1.1 with FAILURE compliance (error_type + error_message required)
 
 Run with:
     uvicorn main:app --reload
@@ -16,24 +19,23 @@ Then test:
     curl -H "X-User-Id: clinician_42" http://localhost:8000/patients/123
     curl http://localhost:8000/patients/404
     curl http://localhost:8000/health
-    cat audit_events.jsonl
 """
 
 from fastapi import FastAPI, HTTPException, Request
-from starlette.responses import Response
 
 from bh_fastapi_audit import AuditConfig, AuditMiddleware, LoggingSink
 
 app = FastAPI(
     title="BH Healthcare Example API",
-    description="Demonstrates audit logging with bh-fastapi-audit v0.2.2",
-    version="0.2.2",
+    description="Demonstrates audit logging with bh-fastapi-audit v0.3.0",
+    version="0.3.0",
 )
 
 
 # ---------------------------------------------------------------------------
 # Actor extraction — HIPAA requires knowing WHO accessed data
 # ---------------------------------------------------------------------------
+
 
 def extract_actor(request: Request) -> dict | None:
     """
@@ -52,11 +54,15 @@ def extract_actor(request: Request) -> dict | None:
 # Safe operational metadata — only allowlisted scalar keys pass through
 # ---------------------------------------------------------------------------
 
-def extract_metadata(request: Request, response: Response) -> dict | None:
-    """Return operational metadata. Non-allowlisted keys are dropped automatically."""
+
+def extract_metadata(request: Request, status_code: int) -> dict | None:
+    """Return operational metadata. Non-allowlisted keys are dropped automatically.
+
+    v0.3 callback signature: (Request, int) — the int is the HTTP status code.
+    """
     return {
         "content_type": request.headers.get("content-type"),
-        "response_status_family": f"{response.status_code // 100}xx",
+        "response_status_family": f"{status_code // 100}xx",
     }
 
 
@@ -67,12 +73,13 @@ def extract_metadata(request: Request, response: Response) -> dict | None:
 config = AuditConfig(
     service_name="bh-example-api",
     service_environment="dev",
-    service_version="0.2.2",
+    service_version="0.3.0",
     get_actor=extract_actor,
     get_metadata=extract_metadata,
-    metadata_allowlist={"content_type", "response_status_family"},
+    metadata_allowlist=frozenset({"content_type", "response_status_family"}),
     include_client_ip=False,
     emit_failure_mode="log",
+    emit_mode="sync",
 )
 
 sink = LoggingSink(logger_name="bh.audit", level="INFO")
@@ -83,6 +90,7 @@ app.add_middleware(AuditMiddleware, sink=sink, config=config)
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
+
 
 @app.get("/")
 def root():
