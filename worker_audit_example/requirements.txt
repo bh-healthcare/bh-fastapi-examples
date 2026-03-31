@@ -2,7 +2,9 @@
 # (no web framework needed)
 
 # Install bh-audit-logger from local checkout (sibling directory):
-#   pip install -e ../bh-audit-logger
+#   pip install -e "../bh-audit-logger[jsonschema]"
 #
 # Or from PyPI (once published):
-#   pip install bh-audit-logger>=0.3.0
+#   pip install "bh-audit-logger[jsonschema]>=0.4.0"
+#
+# Note: [jsonschema] extra is needed when validate_events=True
