@@ -4,6 +4,36 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.4.0] - 2026-03-30
+
+### Added
+
+- **basic_audit_app/main.py** — new v0.4 features demonstrated:
+  - `get_denial_reason` callback for custom denial classification (RoleDenied)
+  - `/patients/{patient_id}/notes` endpoint returning 403 to show DENIED outcome
+  - `validate_events=True` with `validation_failure_mode="log_and_emit"` for dev
+  - `denied_status_codes=frozenset({401, 403})` explicit configuration
+  - `target_schema_version="1.1"` explicit schema negotiation
+  - `owner_org_id` in `get_actor` callback for cross-org access detection
+- **worker_audit_example/main.py** — new v0.4 features demonstrated:
+  - `audit_access_denied()` convenience method with RoleDenied and ConsentRequired
+  - `validate_events=True` with `validation_failure_mode="log_and_emit"`
+  - `target_schema_version="1.1"` explicit schema negotiation
+  - `owner_org_id` in actor block for cross-org access detection
+
+### Changed
+
+- **basic_audit_app/main.py** — updated for bh-fastapi-audit v0.4.0
+  - Version strings updated from 0.3.0 to 0.4.0
+  - `AuditConfig` now includes validation, denial, and schema negotiation fields
+- **worker_audit_example/main.py** — updated for bh-audit-logger v0.4.0
+  - `AuditLoggerConfig` uses `target_schema_version` instead of `schema_version`
+  - Version strings updated from 0.3.0 to 0.4.0
+  - `[jsonschema]` extra noted in requirements.txt for validate_events support
+- **README.md** — updated version references, added DENIED/validation/schema-negotiation
+  documentation, updated sample JSON output
+- **requirements.txt** — updated version comments for v0.4.0
+
 ## [0.3.0] - 2026-03-28
 
 ### Changed
@@ -51,6 +81,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   with `JsonlFileSink` for local development
 - README with quickstart, test commands, and expected output
 
+[0.4.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.2.2...v0.3.0
 [0.2.2]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.1.0...v0.2.2
 [0.1.0]: https://github.com/bh-healthcare/bh-fastapi-examples/releases/tag/v0.1.0

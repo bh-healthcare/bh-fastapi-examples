@@ -6,4 +6,4 @@ uvicorn[standard]>=0.24.0,<1
 #   pip install -e ../bh-fastapi-audit
 #
 # Or from PyPI (once published):
-#   pip install bh-fastapi-audit>=0.3.0
+#   pip install bh-fastapi-audit>=0.4.0
