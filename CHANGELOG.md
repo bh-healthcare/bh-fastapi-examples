@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.5.0] - 2026-04-01
+
+### Removed
+
+- **worker_audit_example/** — moved to the dedicated
+  [bh-audit-logger-examples](https://github.com/bh-healthcare/bh-audit-logger-examples)
+  repository. This repo now focuses exclusively on FastAPI middleware examples.
+
+### Changed
+
+- **README.md** — updated title, description, and related projects to reflect
+  FastAPI-only scope. Added link to bh-audit-logger-examples for non-HTTP patterns.
+
 ## [0.4.0] - 2026-03-30
 
 ### Added
@@ -81,6 +94,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   with `JsonlFileSink` for local development
 - README with quickstart, test commands, and expected output
 
+[0.5.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.2.2...v0.3.0
 [0.2.2]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.1.0...v0.2.2
