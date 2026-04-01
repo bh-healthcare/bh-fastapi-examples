@@ -1,8 +1,10 @@
 # bh-fastapi-examples
 
-Minimal applications demonstrating **bh-fastapi-audit** (v0.4.0) and **bh-audit-logger** (v0.4.0) with production-hardened, HIPAA-safe defaults.
+Minimal application demonstrating **bh-fastapi-audit** (v0.4.0) with production-hardened, HIPAA-safe defaults.
 
-## Examples
+For non-HTTP examples (batch jobs, Lambdas, ETL, CLI tools), see [bh-audit-logger-examples](https://github.com/bh-healthcare/bh-audit-logger-examples).
+
+## Example
 
 ### basic_audit_app — FastAPI middleware
 
@@ -99,34 +101,6 @@ Note:
 
 ---
 
-### worker_audit_example — batch jobs and non-HTTP contexts
-
-Demonstrates `bh-audit-logger` for workers, Lambdas, ETL jobs, CLI tools — anything that isn't FastAPI.
-
-**Quick start:**
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-
-pip install -e "../bh-audit-logger[jsonschema]"
-
-cd worker_audit_example
-python main.py
-```
-
-This example shows:
-- **Batch export** with `phi_touched=True` and `data_classification="PHI"`
-- **Per-record READ** audit events with correlation IDs
-- **DENIED outcomes** via `audit_access_denied()` with RoleDenied and ConsentRequired (v0.4)
-- **Cross-org access detection** with `owner_org_id` in actor block (v0.4)
-- **Runtime validation** with `validate_events=True` (v0.4, requires `[jsonschema]` extra)
-- **Schema negotiation** with `target_schema_version="1.1"` (v0.4)
-- **Sink failure isolation** — a broken sink does not crash the worker
-- **Stats snapshot** — `logger.stats.snapshot()` for operational dashboards
-
----
-
 ## HIPAA compliance notes
 
 These examples follow the safe defaults enforced by the libraries:
@@ -161,6 +135,7 @@ The middleware defaults to `emit_mode="queue"` (10k-event bounded queue with a b
 
 - [bh-fastapi-audit](https://github.com/bh-healthcare/bh-fastapi-audit) — FastAPI audit middleware
 - [bh-audit-logger](https://github.com/bh-healthcare/bh-audit-logger) — Cloud-agnostic audit logger
+- [bh-audit-logger-examples](https://github.com/bh-healthcare/bh-audit-logger-examples) — Framework-agnostic audit logger examples and integration tests
 - [bh-audit-schema](https://github.com/bh-healthcare/bh-audit-schema) — The audit event schema standard
 
 ## License
