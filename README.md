@@ -119,6 +119,10 @@ These examples follow the safe defaults enforced by the libraries:
 
 These are **safe defaults**, not a complete HIPAA compliance solution. You are responsible for proper authentication, access controls, encryption, and BAA agreements.
 
+## What's new in v0.5
+
+- **FastAPI-only scope** — `worker_audit_example/` has moved to [bh-audit-logger-examples](https://github.com/bh-healthcare/bh-audit-logger-examples). This repo now focuses exclusively on FastAPI middleware examples.
+
 ## What's new in v0.4
 
 - **DENIED outcome** — 401/403 responses produce `outcome.status: "DENIED"` instead of `"FAILURE"`, enabling `WHERE outcome.status = 'DENIED'` queries for HIPAA access review
