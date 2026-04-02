@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.5.1] - 2026-04-01
+
+### Fixed
+
+- **README.md** — added "What's new in v0.5" section documenting the
+  `worker_audit_example/` migration to bh-audit-logger-examples
+
 ## [0.5.0] - 2026-04-01
 
 ### Removed
@@ -94,6 +101,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   with `JsonlFileSink` for local development
 - README with quickstart, test commands, and expected output
 
+[0.5.1]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.2.2...v0.3.0
