@@ -1,0 +1,9 @@
+# Copy this file to terraform.tfvars and edit for your environment.
+#
+# terraform.tfvars is gitignored — never commit real values.
+
+region                 = "us-east-1"
+table_name             = "bh_audit_events"
+environment            = "prod"
+ttl_enabled            = true
+point_in_time_recovery = true
