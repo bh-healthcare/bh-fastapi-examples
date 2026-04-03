@@ -19,6 +19,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
     - DynamoDB table with PAY_PER_REQUEST, encryption, PITR, TTL
     - Minimal IAM policy for application write/query access
     - `terraform.tfvars.example` for configuration reference
+- **ledger_audit_app/** — new example demonstrating `LedgerSink` for tamper-evident
+  JSONL audit logging with built-in SHA-256 chain hashing:
+  - Every event includes an `integrity` block linking it to the previous event
+  - `/admin/verify` endpoint reads back the ledger and verifies the full chain
+  - No external infrastructure required — just a local JSONL file
+  - Inline verification script in the module docstring
+- **basic_audit_app** — added commented-out `LedgerSink` alternative showing how to
+  swap in tamper-evident logging as a drop-in replacement for `LoggingSink`.
 
 ## [0.5.1] - 2026-04-01
 
