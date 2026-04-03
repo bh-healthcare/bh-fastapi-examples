@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+
+- **dynamodb_audit_app/** — new example demonstrating `DynamoDBSink` for production
+  DynamoDB-backed audit logging:
+  - Single-table design with `service#date` partition key
+  - Admin query endpoints showing GSI compliance queries (patient, actor, denials)
+  - `docker-compose.yml` for DynamoDB Local development
+  - TTL-based retention (6-year HIPAA default)
+  - All the same PHI safety guarantees as `basic_audit_app`
+
 ## [0.5.1] - 2026-04-01
 
 ### Fixed

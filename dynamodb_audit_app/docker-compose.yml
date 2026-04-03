@@ -1,0 +1,16 @@
+# DynamoDB Local for development and testing.
+#
+# Usage:
+#   docker compose up -d
+#   uvicorn main:app --reload
+#
+# The app uses create_table=True so the table is created on first request.
+# Data is stored in-memory and lost when the container stops.
+
+services:
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    ports:
+      - "8000:8000"
+    command: "-jar DynamoDBLocal.jar -sharedDb -inMemory"
+    restart: unless-stopped
