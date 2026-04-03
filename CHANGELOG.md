@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - `docker-compose.yml` for DynamoDB Local development
   - TTL-based retention (6-year HIPAA default)
   - All the same PHI safety guarantees as `basic_audit_app`
+  - `terraform/` directory with production-ready Terraform module:
+    - DynamoDB table with PAY_PER_REQUEST, encryption, PITR, TTL
+    - Minimal IAM policy for application write/query access
+    - `terraform.tfvars.example` for configuration reference
 
 ## [0.5.1] - 2026-04-01
 
