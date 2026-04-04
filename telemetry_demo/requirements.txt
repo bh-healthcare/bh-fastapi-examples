@@ -1,0 +1,7 @@
+# telemetry_demo requirements
+# Install bh-fastapi-audit from PyPI or local checkout:
+#   pip install bh-fastapi-audit
+# or:
+#   pip install -e "../../bh-fastapi-audit"
+fastapi>=0.100.0,<1
+uvicorn[standard]>=0.23.0,<1

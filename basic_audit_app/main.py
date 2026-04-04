@@ -105,7 +105,7 @@ def classify_denial(request: Request, response: object) -> str | None:
 config = AuditConfig(
     service_name="bh-example-api",
     service_environment="dev",
-    service_version="0.4.0",
+    service_version="0.5.0",
     get_actor=extract_actor,
     get_metadata=extract_metadata,
     metadata_allowlist=frozenset({"content_type", "response_status_family"}),
@@ -120,6 +120,10 @@ config = AuditConfig(
     validation_failure_mode="log_and_emit",
     # v0.4: Schema version negotiation (default "1.1")
     target_schema_version="1.1",
+    # v0.5: Opt-in telemetry — uncomment to enable aggregate usage reporting
+    # telemetry_enabled=True,
+    # telemetry_endpoint="https://telemetry.bh-healthcare.org/v1/report",
+    # telemetry_deployment_id_path="/tmp/bh-audit/",
 )
 
 sink = LoggingSink(logger_name="bh.audit", level="INFO")

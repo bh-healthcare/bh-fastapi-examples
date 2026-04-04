@@ -1,14 +1,22 @@
 # bh-fastapi-examples
 
-Minimal application demonstrating **bh-fastapi-audit** (v0.4.0) with production-hardened, HIPAA-safe defaults.
+Minimal applications demonstrating **bh-fastapi-audit** (v0.5.0) with production-hardened, HIPAA-safe defaults.
 
 For non-HTTP examples (batch jobs, Lambdas, ETL, CLI tools), see [bh-audit-logger-examples](https://github.com/bh-healthcare/bh-audit-logger-examples).
 
-## Example
+## Examples
+
+| Example | What it demonstrates |
+|---|---|
+| `basic_audit_app/` | Production-hardened middleware: actor extraction, DENIED outcomes, validation, schema negotiation |
+| `dynamodb_audit_app/` | DynamoDB sink with compliance query patterns, GSI queries, Docker Compose + Terraform |
+| `ledger_audit_app/` | LedgerSink for tamper-evident JSONL with built-in chain hashing, `/admin/verify` endpoint |
+| `verifier_demo/` | Chain integrity verification via `/admin/verify` endpoint using `verify_chain()` |
+| `telemetry_demo/` | Opt-in telemetry: aggregate counters, `/admin/telemetry` showing what is tracked (no PII/PHI) |
 
 ### basic_audit_app — FastAPI middleware
 
-A FastAPI app showing audit logging with `bh-fastapi-audit` v0.4.0:
+A FastAPI app showing audit logging with `bh-fastapi-audit` v0.5.0:
 
 - **Pure ASGI middleware** — no BaseHTTPMiddleware overhead, supports streaming
 - **Non-blocking async emission** via bounded queue (or `emit_mode="sync"` for demos)

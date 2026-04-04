@@ -8,6 +8,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **verifier_demo/** — new example demonstrating chain integrity verification:
+  - FastAPI app with `LedgerSink` for tamper-evident JSONL logging
+  - `/admin/verify` endpoint using `verify_chain()` programmatically
+  - Human-readable and JSON output formats for CI pipelines
+- **telemetry_demo/** — new example demonstrating opt-in telemetry:
+  - `telemetry_enabled=True` in `AuditConfig`
+  - `/admin/telemetry` endpoint showing aggregate counters (no PII/PHI)
+  - Privacy commitment documentation in response payload
+- **basic_audit_app** — added commented-out telemetry config block showing
+  how to opt-in to aggregate usage reporting (`telemetry_enabled`,
+  `telemetry_endpoint`, `telemetry_deployment_id_path`).
 - **dynamodb_audit_app/** — new example demonstrating `DynamoDBSink` for production
   DynamoDB-backed audit logging:
   - Single-table design with `service#date` partition key

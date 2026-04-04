@@ -153,7 +153,9 @@ def create_patient():
 
 
 @app.get("/admin/query/patient/{patient_id}")
-def query_patient_access(patient_id: str, start: str | None = None, end: str | None = None):
+def query_patient_access(
+    patient_id: str, start: str | None = None, end: str | None = None
+):
     """Query all audit events for a specific patient (GSI1: patient_id-index)."""
     results = sink.query_by_patient(patient_id, start=start, end=end)
     return {"patient_id": patient_id, "events": len(results), "results": results}
