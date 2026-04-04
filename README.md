@@ -1,6 +1,6 @@
 # bh-fastapi-examples
 
-Minimal applications demonstrating **bh-fastapi-audit** (v0.5.0) with production-hardened, HIPAA-safe defaults.
+Minimal applications demonstrating **bh-fastapi-audit** (v1.0.0) with production-hardened, HIPAA-safe defaults.
 
 For non-HTTP examples (batch jobs, Lambdas, ETL, CLI tools), see [bh-audit-logger-examples](https://github.com/bh-healthcare/bh-audit-logger-examples).
 
@@ -16,7 +16,7 @@ For non-HTTP examples (batch jobs, Lambdas, ETL, CLI tools), see [bh-audit-logge
 
 ### basic_audit_app — FastAPI middleware
 
-A FastAPI app showing audit logging with `bh-fastapi-audit` v0.5.0:
+A FastAPI app showing audit logging with `bh-fastapi-audit` v1.0.0:
 
 - **Pure ASGI middleware** — no BaseHTTPMiddleware overhead, supports streaming
 - **Non-blocking async emission** via bounded queue (or `emit_mode="sync"` for demos)
@@ -73,7 +73,7 @@ curl http://localhost:8000/health
   "schema_version": "1.1",
   "event_id": "...",
   "timestamp": "2026-03-30T12:00:00.000Z",
-  "service": { "name": "bh-example-api", "environment": "dev", "version": "0.4.0" },
+  "service": { "name": "bh-example-api", "environment": "dev", "version": "1.0.0" },
   "actor": { "subject_id": "clinician_42", "subject_type": "human", "org_id": "sample_org_id", "owner_org_id": "sample_org_id" },
   "action": { "type": "READ", "data_classification": "UNKNOWN" },
   "resource": { "type": "get_patient" },
@@ -90,7 +90,7 @@ curl http://localhost:8000/health
   "schema_version": "1.1",
   "event_id": "...",
   "timestamp": "2026-03-30T12:01:00.000Z",
-  "service": { "name": "bh-example-api", "environment": "dev", "version": "0.4.0" },
+  "service": { "name": "bh-example-api", "environment": "dev", "version": "1.0.0" },
   "actor": { "subject_id": "clinician_42", "subject_type": "human" },
   "action": { "type": "READ", "data_classification": "UNKNOWN" },
   "resource": { "type": "get_patient_notes" },
@@ -127,7 +127,7 @@ These examples follow the safe defaults enforced by the libraries:
 
 These are **safe defaults**, not a complete HIPAA compliance solution. You are responsible for proper authentication, access controls, encryption, and BAA agreements.
 
-## What's new in v0.5
+## What's new in v1.0
 
 - **FastAPI-only scope** — `worker_audit_example/` has moved to [bh-audit-logger-examples](https://github.com/bh-healthcare/bh-audit-logger-examples). This repo now focuses exclusively on FastAPI middleware examples.
 

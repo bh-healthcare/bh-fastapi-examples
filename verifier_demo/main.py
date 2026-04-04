@@ -1,5 +1,5 @@
 """
-FastAPI app demonstrating the chain verifier (v0.5.0).
+FastAPI app demonstrating the chain verifier (v1.0.0).
 
 Shows:
 - LedgerSink for tamper-evident JSONL audit logging
@@ -42,8 +42,8 @@ LEDGER_PATH = os.environ.get("AUDIT_LEDGER_PATH", "/tmp/bh-audit/verifier_demo.j
 
 app = FastAPI(
     title="BH Audit Verifier Demo",
-    description="Demonstrates chain verification with bh-fastapi-audit v0.5.0",
-    version="0.5.0",
+    description="Demonstrates chain verification with bh-fastapi-audit v1.0.0",
+    version="1.0.0",
 )
 
 os.makedirs(os.path.dirname(LEDGER_PATH), exist_ok=True)

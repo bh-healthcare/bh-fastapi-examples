@@ -1,5 +1,5 @@
 """
-FastAPI app demonstrating opt-in telemetry (v0.5.0).
+FastAPI app demonstrating opt-in telemetry.
 
 Shows:
 - Enabling telemetry via AuditConfig
@@ -29,14 +29,9 @@ from __future__ import annotations
 import os
 
 from fastapi import FastAPI, HTTPException
+from starlette.types import ASGIApp
 
 from bh_fastapi_audit import AuditConfig, AuditMiddleware, LoggingSink
-
-app = FastAPI(
-    title="BH Audit Telemetry Demo",
-    description="Demonstrates opt-in telemetry with bh-fastapi-audit v0.5.0",
-    version="0.5.0",
-)
 
 TELEMETRY_ID_PATH = os.environ.get("TELEMETRY_ID_PATH", "/tmp/bh-audit-telemetry-demo/")
 
@@ -45,16 +40,32 @@ config = AuditConfig(
     service_environment="dev",
     emit_mode="sync",
     excluded_paths=frozenset({"/health", "/healthz", "/ready", "/admin/telemetry"}),
-    # v0.5: Opt-in telemetry
     telemetry_enabled=True,
     telemetry_endpoint="https://example.com/telemetry",
     telemetry_deployment_id_path=TELEMETRY_ID_PATH,
 )
 
 sink = LoggingSink(logger_name="bh.audit", level="INFO")
-middleware = AuditMiddleware(app=None, sink=sink, config=config)
 
-app.add_middleware(AuditMiddleware, sink=sink, config=config)
+_audit_middleware: AuditMiddleware | None = None
+
+
+class _CapturingAuditMiddleware(AuditMiddleware):
+    """Thin wrapper that stores a module-level reference for the admin endpoint."""
+
+    def __init__(self, app: ASGIApp, **kwargs):  # type: ignore[override]
+        super().__init__(app, **kwargs)
+        global _audit_middleware  # noqa: PLW0603
+        _audit_middleware = self
+
+
+app = FastAPI(
+    title="BH Audit Telemetry Demo",
+    description="Demonstrates opt-in telemetry with bh-fastapi-audit",
+    version="1.0.0",
+)
+
+app.add_middleware(_CapturingAuditMiddleware, sink=sink, config=config)
 
 
 @app.get("/")
@@ -91,11 +102,10 @@ def admin_telemetry():
     In production, counters are POSTed to the telemetry endpoint weekly.
     This admin endpoint exists only for this demo.
     """
-    emitter = middleware._telemetry
-    if emitter is None:
+    if _audit_middleware is None or _audit_middleware._telemetry is None:
         return {"error": "Telemetry is not enabled"}
 
-    counters = emitter.counters
+    counters = _audit_middleware._telemetry.counters
     return {
         "telemetry_enabled": True,
         "deployment_id_path": TELEMETRY_ID_PATH,

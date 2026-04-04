@@ -72,7 +72,7 @@ def get_actor(request: Request) -> dict[str, Any] | None:
 config = AuditConfig(
     service_name="ledger-example",
     service_environment=os.environ.get("ENVIRONMENT", "dev"),
-    service_version="0.5.0-alpha2",
+    service_version="1.0.0",
     get_actor=get_actor,
     emit_mode="sync",
 )
