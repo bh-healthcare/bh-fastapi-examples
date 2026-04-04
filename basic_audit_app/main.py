@@ -30,6 +30,10 @@ from fastapi import FastAPI, HTTPException, Request
 
 from bh_fastapi_audit import AuditConfig, AuditMiddleware, LoggingSink
 
+# Alternative: tamper-evident JSONL with chain hashing (v0.5)
+# from bh_fastapi_audit import LedgerSink
+# sink = LedgerSink("audit_ledger.jsonl")  # drop-in replacement for LoggingSink
+
 app = FastAPI(
     title="BH Healthcare Example API",
     description="Demonstrates audit logging with bh-fastapi-audit v0.4.0",
