@@ -8,6 +8,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **verifier_demo/** — new example demonstrating chain integrity verification:
+  - FastAPI app with `LedgerSink` for tamper-evident JSONL logging
+  - `/admin/verify` endpoint using `verify_chain()` programmatically
+  - Human-readable and JSON output formats for CI pipelines
+- **telemetry_demo/** — new example demonstrating opt-in telemetry:
+  - `telemetry_enabled=True` in `AuditConfig`
+  - `/admin/telemetry` endpoint showing aggregate counters (no PII/PHI)
+  - Privacy commitment documentation in response payload
+- **basic_audit_app** — added commented-out telemetry config block showing
+  how to opt-in to aggregate usage reporting (`telemetry_enabled`,
+  `telemetry_endpoint`, `telemetry_deployment_id_path`).
 - **dynamodb_audit_app/** — new example demonstrating `DynamoDBSink` for production
   DynamoDB-backed audit logging:
   - Single-table design with `service#date` partition key
@@ -32,10 +43,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
-- **README.md** — added "What's new in v0.5" section documenting the
+- **README.md** — added "What's new in v1.0" section documenting the
   `worker_audit_example/` migration to bh-audit-logger-examples
 
-## [0.5.0] - 2026-04-01
+## [1.0.0] - 2026-04-01
 
 ### Removed
 
@@ -47,8 +58,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - **README.md** — updated title, description, and related projects to reflect
   FastAPI-only scope. Added link to bh-audit-logger-examples for non-HTTP patterns.
-
-## [0.4.0] - 2026-03-30
 
 ### Added
 
@@ -67,16 +76,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-- **basic_audit_app/main.py** — updated for bh-fastapi-audit v0.4.0
-  - Version strings updated from 0.3.0 to 0.4.0
+- **basic_audit_app/main.py** — updated for bh-fastapi-audit v1.0.0
+  - Version strings updated from 0.3.0 to 1.0.0
   - `AuditConfig` now includes validation, denial, and schema negotiation fields
-- **worker_audit_example/main.py** — updated for bh-audit-logger v0.4.0
+- **worker_audit_example/main.py** — updated for bh-audit-logger v1.0.0
   - `AuditLoggerConfig` uses `target_schema_version` instead of `schema_version`
-  - Version strings updated from 0.3.0 to 0.4.0
+  - Version strings updated from 0.3.0 to 1.0.0
   - `[jsonschema]` extra noted in requirements.txt for validate_events support
 - **README.md** — updated version references, added DENIED/validation/schema-negotiation
   documentation, updated sample JSON output
-- **requirements.txt** — updated version comments for v0.4.0
+- **requirements.txt** — updated version comments for v1.0.0
 
 ## [0.3.0] - 2026-03-28
 
@@ -125,9 +134,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   with `JsonlFileSink` for local development
 - README with quickstart, test commands, and expected output
 
-[0.5.1]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.5.0...v0.5.1
-[0.5.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.4.0...v0.5.0
-[0.4.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.3.0...v0.4.0
+[1.0.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.5.1...v1.0.0
 [0.3.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.2.2...v0.3.0
 [0.2.2]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.1.0...v0.2.2
 [0.1.0]: https://github.com/bh-healthcare/bh-fastapi-examples/releases/tag/v0.1.0

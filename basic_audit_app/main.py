@@ -1,5 +1,5 @@
 """
-Basic FastAPI app demonstrating bh-fastapi-audit middleware (v0.4.0).
+Basic FastAPI app demonstrating bh-fastapi-audit middleware (v1.0.0).
 
 Shows production-hardened audit logging with HIPAA-safe defaults:
 - Pure ASGI middleware (no BaseHTTPMiddleware overhead)
@@ -30,14 +30,14 @@ from fastapi import FastAPI, HTTPException, Request
 
 from bh_fastapi_audit import AuditConfig, AuditMiddleware, LoggingSink
 
-# Alternative: tamper-evident JSONL with chain hashing (v0.5)
+# Alternative: tamper-evident JSONL with chain hashing (v1.0)
 # from bh_fastapi_audit import LedgerSink
 # sink = LedgerSink("audit_ledger.jsonl")  # drop-in replacement for LoggingSink
 
 app = FastAPI(
     title="BH Healthcare Example API",
-    description="Demonstrates audit logging with bh-fastapi-audit v0.4.0",
-    version="0.4.0",
+    description="Demonstrates audit logging with bh-fastapi-audit v1.0.0",
+    version="1.0.0",
 )
 
 
@@ -105,7 +105,7 @@ def classify_denial(request: Request, response: object) -> str | None:
 config = AuditConfig(
     service_name="bh-example-api",
     service_environment="dev",
-    service_version="0.4.0",
+    service_version="1.0.0",
     get_actor=extract_actor,
     get_metadata=extract_metadata,
     metadata_allowlist=frozenset({"content_type", "response_status_family"}),
@@ -120,6 +120,10 @@ config = AuditConfig(
     validation_failure_mode="log_and_emit",
     # v0.4: Schema version negotiation (default "1.1")
     target_schema_version="1.1",
+    # v1.0: Opt-in telemetry — uncomment to enable aggregate usage reporting
+    # telemetry_enabled=True,
+    # telemetry_endpoint="https://abt0rxi196.execute-api.us-east-1.amazonaws.com/v1/report",
+    # telemetry_deployment_id_path="/tmp/bh-audit/",
 )
 
 sink = LoggingSink(logger_name="bh.audit", level="INFO")

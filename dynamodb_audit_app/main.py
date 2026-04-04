@@ -38,7 +38,7 @@ from bh_fastapi_audit.sinks.dynamodb import DynamoDBSink
 app = FastAPI(
     title="BH Healthcare DynamoDB Example",
     description="Demonstrates DynamoDB-backed audit logging with bh-fastapi-audit",
-    version="0.5.0",
+    version="1.0.0",
 )
 
 # ---------------------------------------------------------------------------
@@ -98,7 +98,7 @@ sink = DynamoDBSink(
 config = AuditConfig(
     service_name="bh-example-api",
     service_environment="dev",
-    service_version="0.5.0",
+    service_version="1.0.0",
     get_actor=extract_actor,
     get_metadata=extract_metadata,
     metadata_allowlist=frozenset({"content_type", "response_status_family"}),
@@ -153,7 +153,9 @@ def create_patient():
 
 
 @app.get("/admin/query/patient/{patient_id}")
-def query_patient_access(patient_id: str, start: str | None = None, end: str | None = None):
+def query_patient_access(
+    patient_id: str, start: str | None = None, end: str | None = None
+):
     """Query all audit events for a specific patient (GSI1: patient_id-index)."""
     results = sink.query_by_patient(patient_id, start=start, end=end)
     return {"patient_id": patient_id, "events": len(results), "results": results}
