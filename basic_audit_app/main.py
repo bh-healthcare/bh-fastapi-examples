@@ -120,10 +120,14 @@ config = AuditConfig(
     validation_failure_mode="log_and_emit",
     # v0.4: Schema version negotiation (default "1.1")
     target_schema_version="1.1",
-    # v1.0: Opt-in telemetry — uncomment to enable aggregate usage reporting
+    # v1.0+: Opt-in telemetry — uncomment to enable aggregate usage reporting
     # telemetry_enabled=True,
     # telemetry_endpoint="https://abt0rxi196.execute-api.us-east-1.amazonaws.com/v1/report",
     # telemetry_deployment_id_path="/tmp/bh-audit/",
+    # v1.1: Lambda-safe flush defaults (300s interval, 500 event threshold, 1.5s timeout)
+    # telemetry_flush_interval_seconds=300.0,
+    # telemetry_event_flush_threshold=500,
+    # telemetry_http_timeout_s=1.5,
 )
 
 sink = LoggingSink(logger_name="bh.audit", level="INFO")
