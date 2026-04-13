@@ -7,7 +7,7 @@ Shows:
 - /admin/telemetry endpoint showing current counters
 
 Note: Uses a mock endpoint. In production, telemetry reports are POSTed
-weekly to the configured telemetry_endpoint.
+at the configured flush interval (default 300s) or event threshold (default 500).
 
 Run:
     cd telemetry_demo
@@ -26,6 +26,7 @@ Then test:
 
 from __future__ import annotations
 
+import logging
 import os
 
 from fastapi import FastAPI, HTTPException
@@ -43,6 +44,12 @@ config = AuditConfig(
     telemetry_enabled=True,
     telemetry_endpoint="https://example.com/telemetry",
     telemetry_deployment_id_path=TELEMETRY_ID_PATH,
+    # v1.1: Lambda-safe defaults (flush every 300s or 500 events, 1.5s HTTP timeout)
+    telemetry_flush_interval_seconds=300.0,
+    telemetry_event_flush_threshold=500,
+    telemetry_http_timeout_s=1.5,
+    # DEBUG for this demo since the mock endpoint always fails
+    telemetry_log_level=logging.DEBUG,
 )
 
 sink = LoggingSink(logger_name="bh.audit", level="INFO")
@@ -99,7 +106,8 @@ def update_patient(patient_id: str):
 def admin_telemetry():
     """Show current telemetry counters (for demonstration only).
 
-    In production, counters are POSTed to the telemetry endpoint weekly.
+    In production, counters are flushed to the telemetry endpoint at the
+    configured interval (default 300s) or event threshold (default 500).
     This admin endpoint exists only for this demo.
     """
     if _audit_middleware is None or _audit_middleware._telemetry is None:

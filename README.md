@@ -1,6 +1,6 @@
 # bh-fastapi-examples
 
-Minimal applications demonstrating **bh-fastapi-audit** (v1.0.0) with production-hardened, HIPAA-safe defaults.
+Minimal applications demonstrating **bh-fastapi-audit** (v1.1.0) with production-hardened, HIPAA-safe defaults.
 
 For non-HTTP examples (batch jobs, Lambdas, ETL, CLI tools), see [bh-audit-logger-examples](https://github.com/bh-healthcare/bh-audit-logger-examples).
 
@@ -12,11 +12,11 @@ For non-HTTP examples (batch jobs, Lambdas, ETL, CLI tools), see [bh-audit-logge
 | `dynamodb_audit_app/` | DynamoDB sink with compliance query patterns, GSI queries, Docker Compose + Terraform |
 | `ledger_audit_app/` | LedgerSink for tamper-evident JSONL with built-in chain hashing, `/admin/verify` endpoint |
 | `verifier_demo/` | Chain integrity verification via `/admin/verify` endpoint using `verify_chain()` |
-| `telemetry_demo/` | Opt-in telemetry: aggregate counters, `/admin/telemetry` showing what is tracked (no PII/PHI) |
+| `telemetry_demo/` | Lambda-safe telemetry: dual-trigger flush (interval + threshold), `/admin/telemetry` counters (no PII/PHI) |
 
 ### basic_audit_app — FastAPI middleware
 
-A FastAPI app showing audit logging with `bh-fastapi-audit` v1.0.0:
+A FastAPI app showing audit logging with `bh-fastapi-audit` v1.1.0:
 
 - **Pure ASGI middleware** — no BaseHTTPMiddleware overhead, supports streaming
 - **Non-blocking async emission** via bounded queue (or `emit_mode="sync"` for demos)

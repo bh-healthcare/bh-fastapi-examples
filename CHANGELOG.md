@@ -19,6 +19,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **basic_audit_app** — added commented-out telemetry config block showing
   how to opt-in to aggregate usage reporting (`telemetry_enabled`,
   `telemetry_endpoint`, `telemetry_deployment_id_path`).
+
+### Changed
+
+- **telemetry_demo/main.py** — updated for bh-fastapi-audit v1.1.0 Lambda-safe
+  telemetry: added `telemetry_flush_interval_seconds`, `telemetry_event_flush_threshold`,
+  `telemetry_http_timeout_s` config fields; updated docstrings from "weekly" to
+  "interval/threshold" language.
+- **basic_audit_app/main.py** — expanded commented telemetry block with v1.1 fields
+  (`telemetry_flush_interval_seconds`, `telemetry_event_flush_threshold`,
+  `telemetry_http_timeout_s`).
+
+### Fixed
+
+- **Telemetry payload format** — telemetry report now uses `"schema": "bh-telemetry-v1"`
+  and nested `"period": {"start": ..., "end": ...}` to match the receiver Lambda API.
+  Previous format was silently rejected with HTTP 400.
 - **dynamodb_audit_app/** — new example demonstrating `DynamoDBSink` for production
   DynamoDB-backed audit logging:
   - Single-table design with `service#date` partition key
