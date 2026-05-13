@@ -1,6 +1,6 @@
 # bh-fastapi-examples
 
-Minimal applications demonstrating **bh-fastapi-audit** (v1.1.0) with production-hardened, HIPAA-safe defaults.
+Minimal applications demonstrating **bh-fastapi-audit** (v1.1.1) with production-hardened, HIPAA-safe defaults.
 
 For non-HTTP examples (batch jobs, Lambdas, ETL, CLI tools), see [bh-audit-logger-examples](https://github.com/bh-healthcare/bh-audit-logger-examples).
 
@@ -16,7 +16,7 @@ For non-HTTP examples (batch jobs, Lambdas, ETL, CLI tools), see [bh-audit-logge
 
 ### basic_audit_app — FastAPI middleware
 
-A FastAPI app showing audit logging with `bh-fastapi-audit` v1.1.0:
+A FastAPI app showing audit logging with `bh-fastapi-audit` v1.1.1:
 
 - **Pure ASGI middleware** — no BaseHTTPMiddleware overhead, supports streaming
 - **Non-blocking async emission** via bounded queue (or `emit_mode="sync"` for demos)
