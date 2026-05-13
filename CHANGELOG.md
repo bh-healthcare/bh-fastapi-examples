@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-05-12
+
+### Changed
+
+- Updated bh-fastapi-audit dependency reference to v1.1.1 (vendored
+  bh-audit-schema v1.1 now uses `$defs` for `ActionType`, `OutcomeStatus`, and
+  `DataClassification`; no behavioral change to examples).
 ### Added
 
 - **verifier_demo/** — new example demonstrating chain integrity verification:
@@ -54,14 +61,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Inline verification script in the module docstring
 - **basic_audit_app** — added commented-out `LedgerSink` alternative showing how to
   swap in tamper-evident logging as a drop-in replacement for `LoggingSink`.
-
-## [1.0.1] - 2026-05-12
-
-### Changed
-
-- Updated bh-fastapi-audit dependency reference to v1.1.1 (vendored
-  bh-audit-schema v1.1 now uses `$defs` for `ActionType`, `OutcomeStatus`, and
-  `DataClassification`; no behavioral change to examples).
 
 ## [0.5.1] - 2026-04-01
 
