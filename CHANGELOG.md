@@ -55,6 +55,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **basic_audit_app** — added commented-out `LedgerSink` alternative showing how to
   swap in tamper-evident logging as a drop-in replacement for `LoggingSink`.
 
+## [1.0.1] - 2026-05-12
+
+### Changed
+
+- Updated bh-fastapi-audit dependency reference to v1.1.1 (vendored
+  bh-audit-schema v1.1 now uses `$defs` for `ActionType`, `OutcomeStatus`, and
+  `DataClassification`; no behavioral change to examples).
+
 ## [0.5.1] - 2026-04-01
 
 ### Fixed
@@ -150,6 +158,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   with `JsonlFileSink` for local development
 - README with quickstart, test commands, and expected output
 
+[1.0.1]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.5.1...v1.0.0
 [0.3.0]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.2.2...v0.3.0
 [0.2.2]: https://github.com/bh-healthcare/bh-fastapi-examples/compare/v0.1.0...v0.2.2
